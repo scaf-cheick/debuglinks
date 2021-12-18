@@ -7,7 +7,7 @@
         <br>
 
         <blockquote>
-                <h5><b>DebugLinks contibutors. We proud of you!</b></h5>
+                <h5><b>DebugLinks contributors. We proud of you!</b></h5>
         </blockquote>
       
         <br>

@@ -31,10 +31,10 @@ class MemberController extends Controller
             'criteria' => ['required', 'string'],
         ]);	
 
-        if($request->criteria == 'best'){
+        if(strcmp( $request->criteria, 'best')==0 ){
         	$members = User::where('role', 'contributor')->orderBy('rating', 'desc')->paginate(15);
         }else{
-        	$members = User::where('role', 'contributor')->orderBy('id', 'desc')->paginate(15);
+        	$members = User::where('role', 'contributor')->orderBy('created_at', 'desc')->paginate(15);
         }
     	$categories = Category::all();
 

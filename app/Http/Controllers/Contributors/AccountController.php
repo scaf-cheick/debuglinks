@@ -16,7 +16,7 @@ class AccountController extends Controller
     public function home(){
 
 	    $account = Auth::user();
-        $threads = $account->threads()->paginate(10);
+        $threads = $account->threads()->orderBy('created_at', 'DESC')->paginate(10);
 	    return view('contributor.account.home', compact('account', 'threads'));
     }
 
