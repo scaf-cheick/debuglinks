@@ -3,7 +3,7 @@
     <!-- Dropdown Account Structure -->
     <ul id="account" class="dropdown-content">
       <li>
-        <a href="{{route('account.home')}}">Dashbord<i class="material-icons green-text left">dashboard</i></a>
+        <a href="{{route('account.home')}}">Dashboard<i class="material-icons green-text left">dashboard</i></a>
       </li>
       <li class="divider"></li>
       <li>
