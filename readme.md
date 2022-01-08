@@ -12,6 +12,7 @@ To initiate the process, run the following commands:
 
 ```bash
 php artisan migrate
+composer dump-autoload
 php artisan db:seed
 ```
 
