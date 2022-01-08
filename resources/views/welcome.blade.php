@@ -7,7 +7,7 @@
 
             <div class="col s12 m12 l6 " data-aos="fade-right" data-aos-delay="400">
               <h1 class="big-title">DebugLinks,<br> The best way to debug your code.</h1>
-              <p class="big-subtitle">Thanks to the contributions of developers who have already faced the same issues as you.</p>   
+              <p class="big-subtitle">Thanks to the contributions of developers who have already solved the same issues as you.</p>   
               <br>
               <a href="{{route('register')}}" class="btn btn-small back-color waves-effect waves-light z-depth-0 ">Register now!<i class="material-icons white-text right">group</i></a>          
             </div>
@@ -40,7 +40,7 @@
     <div style="" class="how-section">
             
         <h1 class="big-title center">How it works ?</h1>
-        <p class="big-subtitle center ml20r20">Our mission is to help developers drastically reduce the time spent debugging their code. And this thanks to the experiences of other developers who have already encountered the same difficulties.</p>
+        <p class="big-subtitle center ml20r20">Our mission is to help developers drastically reduce the time spent debugging their code. And this, thanks to the experiences of other developers who have already solved this same problems.</p>
         <br>
         <div class="row">
 

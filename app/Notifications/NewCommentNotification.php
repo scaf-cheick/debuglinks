@@ -3,9 +3,10 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+
 use Illuminate\Support\Facades\Lang;
 
 class NewCommentNotification extends Notification
@@ -42,12 +43,19 @@ class NewCommentNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        /*
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
+        */
+
         if($this->isReply){
             return (new MailMessage)
                 ->subject("Debuglinks, nouveau commentaire")
                 ->greeting('Bonjour!')
                 ->line('Vous avez reçu une reponse à votre commentaire sur le thread intitulé : '. $this->item->subject )
-                ->line('Merci de vous connectez afin de voir plus de détails...')
+                ->line('Merci de vous connecter afin de voir plus de détails...')
                 ->action(Lang::get('Consulter le commentaire'), url('/') . '/threads/' . $this->item->slug);
         }
         else{
@@ -55,7 +63,7 @@ class NewCommentNotification extends Notification
                 ->subject("Debuglinks, nouveau commentaire")
                 ->greeting('Bonjour!')
                 ->line('Vous avez reçu un nouveau commentaire sur votre thread intitulé : '. $this->item->subject )
-                ->line('Merci de vous connectez afin de voir plus de détails...')
+                ->line('Merci de vous connecter afin de voir plus de détails...')
                 ->action(Lang::get('Consulter le commentaire'), url('/') . '/threads/'. $this->item->slug);
         }
     }

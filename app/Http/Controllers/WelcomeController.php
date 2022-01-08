@@ -12,7 +12,7 @@ class WelcomeController extends Controller
 {
     public function welcome(){
 
-    	$threads = Thread::orderBy('id','desc')->paginate(10);
+    	$threads = Thread::orderBy('id','desc')->paginate(30);
         $categories = Category::all();
         $tags = Tag::all();
 

@@ -11,7 +11,13 @@ class MemberController extends Controller
 {
     public function home(){
 
-    	$members = User::where('role', 'contributor')->orderBy('id', 'desc')->paginate(15);
+    	//$members = User::where('role', 'contributor')->orderBy('id', 'desc')->paginate(25);
+
+        $members = User::where('role', 'contributor')
+                            ->withCount('threads')
+                            ->orderBy('threads_count', 'DESC')
+                            ->paginate(15);
+
     	$categories = Category::all();
 
     	return view('contributor.member.home', compact('members', 'categories'));
@@ -20,7 +26,7 @@ class MemberController extends Controller
     public function show($ref){
 
     	$member = User::where('ref', $ref)->firstOrFail();
-        $threads = $member->threads()->paginate(10);
+        $threads = $member->threads()->orderBy('id','DESC')->paginate(25);
     	return view('contributor.member.show', compact('member', 'threads'));
 
     }
@@ -32,7 +38,13 @@ class MemberController extends Controller
         ]);	
 
         if(strcmp( $request->criteria, 'best')==0 ){
-        	$members = User::where('role', 'contributor')->orderBy('rating', 'desc')->paginate(15);
+        	//$members = User::where('role', 'contributor')->orderBy('rating', 'DESC')->paginate(15);
+
+            $members = User::withCount('threads')
+                            ->orderBy('threads_count', 'DESC')
+                            ->paginate(15);
+
+
         }else{
         	$members = User::where('role', 'contributor')->orderBy('created_at', 'desc')->paginate(15);
         }

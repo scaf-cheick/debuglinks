@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 Route::get('/search', 'Thread\ThreadController@searchByKeword')->name('search.keywords');
 
@@ -28,8 +30,11 @@ Route::post('/comment/reply/create/{comment}', 'Thread\ThreadController@replyCom
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware'=>['auth','verified'],'namespace'=>'Contributors'],function(){
-	
-	Route::get('/account','AccountController@home')->name('account.home');
-	Route::post('/account/update','AccountController@update')->name('account.update');
+    
+    Route::get('/account','AccountController@home')->name('account.home');
+    Route::post('/account/update','AccountController@update')->name('account.update');
 });
 
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');

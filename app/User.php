@@ -2,10 +2,11 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmail;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','picture','description','role','rating','ref',
+        'name', 'email', 'password','picture','description','role','rating','ref','google_id','email_verified_at',
     ];
 
     /**
@@ -65,4 +66,5 @@ class User extends Authenticatable implements MustVerifyEmail
         $rating = intdiv($nb_threads, 10) + intdiv($nb_comments, 5);
         return $rating;
     }
+    
 }

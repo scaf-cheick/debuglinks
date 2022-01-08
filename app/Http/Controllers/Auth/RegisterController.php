@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -29,29 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    public function redirectTo(){
-        
-        return '/account';
-        /*
-        $role = Auth::user()->role; 
-
-        switch ($role) {
-            
-            case 'admin':
-                    return '/admin';
-                break;
-
-            case 'contributor':
-                    return '/account';
-                break; 
-
-            default:
-                    return '/login'; 
-                break;
-        }
-        */
-        
-    }
+    protected $redirectTo = '/account';
 
     /**
      * Create a new controller instance.
@@ -72,9 +50,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string','min:3', 'max:50'],
-            'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 

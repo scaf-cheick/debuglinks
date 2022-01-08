@@ -56,6 +56,10 @@
                                 <br>
                                 <p class="margin medium-small"><a href="">Already registered?</a></p>
                             </div>
+
+                            <a href="{{ url('auth/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
+                                  <strong>Login With Google</strong>
+                            </a> 
                         </form>
                                     
                       </div>
@@ -68,3 +72,4 @@
 
 
 @endsection
+

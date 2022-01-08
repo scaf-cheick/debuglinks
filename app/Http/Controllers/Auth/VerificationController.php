@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
-use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -26,26 +26,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    public function redirectTo(){
-        
-        $role = Auth::user()->role; 
-
-        switch ($role) {
-            
-            case 'admin':
-                    return '/admin';
-                break;
-
-            case 'contributor':
-                    return '/account';
-                break; 
-
-            default:
-                    return '/login'; 
-                break;
-        }
-        
-    }
+    protected $redirectTo = '/account';
 
     /**
      * Create a new controller instance.

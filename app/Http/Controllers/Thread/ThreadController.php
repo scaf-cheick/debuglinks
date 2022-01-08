@@ -29,7 +29,7 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        $threads = Thread::orderBy('id','desc')->paginate(20);
+        $threads = Thread::orderBy('id','desc')->paginate(50);
         $categories = Category::all();
         $tags = Tag::all();
 
@@ -108,7 +108,24 @@ class ThreadController extends Controller
         $thread->views += 1;
         $thread->save();
 
-        $threads = Thread::where('category_id', $thread->category_id)->where('id','!=', $thread->id)->orderBy('id','desc')->paginate(3);
+        //$threads = Thread::where('category_id', $thread->category_id)->where('id','!=', $thread->id)->orderBy('id','desc')->paginate(3);
+
+        $threads = Thread::join('thread_tag', 'threads.id','=','thread_tag.thread_id')
+            ->join('tags','tags.id','=','thread_tag.tag_id')
+            ->orWhereIn('tags.id',collect($thread->tag))
+            //->where('id','!=', $thread->id)
+            ->with('tag')
+            ->distinct()
+            // ->where('category_id', $thread->category_id)
+            ->orderBy('id','desc')
+            ->select('threads.*')
+            ->paginate(15);
+
+            // ->with('tag')
+            // ->distinct()
+            // ->get(['threads.*'])
+
+
         $categories = Category::all();
 
         return view('thread.show', compact('thread','threads','categories'));
@@ -223,9 +240,34 @@ class ThreadController extends Controller
        if (isset($_GET['search'])) {
             $s = $_GET['search'];
             //dd($s);
+
+
+            $q = "%".str_replace(" ", "%", $s)."%";
+
             $threads = Thread::where([
-                ["subject", "like", "%" . $s . "%"]
-            ])->orderBy('id', 'desc')->paginate(20);
+                        ["subject", "like", "%" . $q . "%"]
+                    ])->orderBy('id', 'desc')->paginate(25);
+
+            //$threads = Thread::where('subject','regexp', $s)->get();
+            //dd($threads);
+
+            /*
+                $result = collect([]);
+                $queries = explode(" ", $s);
+
+                foreach ($queries as $k) {
+
+                    $threads = Thread::where([
+                        ["subject", "like", "%" . $k . "%"]
+                    ])->orderBy('id', 'desc')->get();
+
+                    $result->push($threads);
+                }
+
+                $threads = Thread::WhereIn('id', $results) $result;
+            */
+
+            //dd($threads);
 
             $categories = Category::all();
             $tags = Tag::all();

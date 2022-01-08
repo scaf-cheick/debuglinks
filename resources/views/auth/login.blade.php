@@ -45,10 +45,17 @@
 
                             <button class="waves-effect waves-dark btn-large back-color btn_register" type="submit">Login</button>
 
-                            <div class="input-field">
-                                <br>
-                                <p class="margin medium-small"><a href="{{ route('password.request') }}">Password forgot?</a></p>
-                            </div>
+                            @if (Route::has('password.request'))
+
+                                <div class="input-field">
+                                    <br>
+                                    <p class="margin medium-small"><a href="{{ route('password.request') }}">Password forgot?</a></p>
+                                </div>
+
+                            @endif
+                            <a href="{{ url('auth/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
+                                  <strong>Login With Google</strong>
+                            </a> 
                         </form>
                                     
                       </div>
@@ -61,3 +68,4 @@
 
 
 @endsection
+
