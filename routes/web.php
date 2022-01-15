@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +13,10 @@
 */
 
 
-
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 Route::get('/search', 'Thread\ThreadController@searchByKeword')->name('search.keywords');
 
-Route::get('/members','Contributors\MemberController@home')->name('member.home');
+Route::get('/members/{criteria?}','Contributors\MemberController@home')->name('member.home');
 Route::get('/members/details/{ref}','Contributors\MemberController@show')->name('member.show');
 Route::post('/members/filter/','Contributors\MemberController@filter')->name('member.filter');
 
@@ -30,7 +30,7 @@ Route::post('/comment/reply/create/{comment}', 'Thread\ThreadController@replyCom
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware'=>['auth','verified'],'namespace'=>'Contributors'],function(){
-    
+
     Route::get('/account','AccountController@home')->name('account.home');
     Route::post('/account/update','AccountController@update')->name('account.update');
 });

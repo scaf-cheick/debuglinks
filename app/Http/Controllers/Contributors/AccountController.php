@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class AccountController extends Controller
 {
-   
+
     public function home(){
 
 	    $account = Auth::user();
@@ -54,7 +54,7 @@ class AccountController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
             if(!file_exists('uploads/contributors')){
-                mkdir('uploads/contributors',0777,true);       
+                mkdir('uploads/contributors',0777,true);
             }
             $image->move('uploads/contributors',$imagename);
 
@@ -67,7 +67,6 @@ class AccountController extends Controller
         if(!empty($request->password)){
             $request->password = Hash::make($request->password);
         }
-
         $user->save();
 
         $request->session()->flash('status', 'compte modifié avec succès...');

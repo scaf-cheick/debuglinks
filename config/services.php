@@ -31,8 +31,8 @@ return [
     ],
 
     'google' => [
-        'client_id' => '',
-        'client_secret' => '',
+        'client_id' => 'debuglinks226@gmail.com',
+        'client_secret' => 'Debug226@Links',
         'redirect' => 'http://localhost:8000/auth/google/callback',
     ],
 

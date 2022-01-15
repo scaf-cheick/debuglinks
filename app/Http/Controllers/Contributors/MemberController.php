@@ -9,18 +9,22 @@ use App\Models\Category;
 
 class MemberController extends Controller
 {
-    public function home(){
-
-    	//$members = User::where('role', 'contributor')->orderBy('id', 'desc')->paginate(25);
-
-        $members = User::where('role', 'contributor')
+    public function home($criteria = null){
+        $key=1;
+        if(!$criteria || strcmp( $criteria, 'best')==0){
+            $members = User::where('role', 'contributor')
                             ->withCount('threads')
                             ->orderBy('threads_count', 'DESC')
                             ->paginate(15);
-
+        }
+        else{
+                $members = User::where('role', 'contributor')->orderBy('created_at', 'desc')->paginate(15);
+                $key=2;
+        }
+    	//$members = User::where('role', 'contributor')->orderBy('id', 'desc')->paginate(25);
     	$categories = Category::all();
 
-    	return view('contributor.member.home', compact('members', 'categories'));
+    	return view('contributor.member.home', compact('members', 'categories','key'));
     }
 
     public function show($ref){
@@ -32,25 +36,9 @@ class MemberController extends Controller
     }
 
     public function filter(Request $request){
-
     	$data = $this->validate($request, [
             'criteria' => ['required', 'string'],
-        ]);	
-
-        if(strcmp( $request->criteria, 'best')==0 ){
-        	//$members = User::where('role', 'contributor')->orderBy('rating', 'DESC')->paginate(15);
-
-            $members = User::withCount('threads')
-                            ->orderBy('threads_count', 'DESC')
-                            ->paginate(15);
-
-
-        }else{
-        	$members = User::where('role', 'contributor')->orderBy('created_at', 'desc')->paginate(15);
-        }
-    	$categories = Category::all();
-
-    	return view('contributor.member.home', compact('members', 'categories'));
-
+        ]);
+    	return redirect()->route('member.home',$request->criteria);
     }
 }
