@@ -1,8 +1,8 @@
 @extends('layouts.front')
 
 @section('content')
-		
-	
+
+
 	<div class="marge">
         <br>
         <div class="center">
@@ -23,15 +23,15 @@
             <div>
 
             	<div class="card mt-2">
-                        
+
                   	<ul class="collection">
-                        
+
                         @forelse($threads as $thread)
 
                             <a class="collection-item avatar" href="{{route('threads.show', $thread)}}">
                                 <img src="{{asset('uploads/contributors/'.$thread->author->picture)}}" alt="" class="circle">
                                 <span class="title truncate"><b>@foreach($thread->tag as $tag) {{$tag->title}}, @endforeach </b></span>
-                                <span class="grey-text" style="font-size: 12px;">Posté par {{$thread->author->name}} {{$thread->created_at->diffForHumans()}}</span>
+                                <span class="grey-text" style="font-size: 12px;">Posted by {{$thread->author->name}} {{$thread->created_at->diffForHumans()}}</span>
                                 <br>
                                 <span class="" style="font-size: 14px;">Category : {{$thread->category->title}} </span>
                                 <p class="truncate black-text"> {{$thread->subject}}
@@ -42,21 +42,21 @@
                         @empty
                           <li class="collection-item"><span>No solution published for the moment!</span></li>
                         @endforelse
-                      
+
                   	</ul>
 
-                
+
                   	<br>
                   	<div class="center">
                       	{{$threads->links()}}
                   	</div>
-                  	<br>         
+                  	<br>
               	</div>
-                
+
             </div>
-            
-              
-          <br><br>  
+
+
+          <br><br>
         </div>
 
 

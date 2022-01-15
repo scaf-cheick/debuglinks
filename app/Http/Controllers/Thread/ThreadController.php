@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ThreadController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware(['auth','verified'], ['except' => ['index', 'show','filterByCategory','filterByTag', 'searchByKeword']]);
@@ -112,7 +112,7 @@ class ThreadController extends Controller
 
         $threads = Thread::join('thread_tag', 'threads.id','=','thread_tag.thread_id')
             ->join('tags','tags.id','=','thread_tag.tag_id')
-            ->orWhereIn('tags.id',collect($thread->tag))
+            // ->orWhereIn('tags.id',collect($thread->tag))
             //->where('id','!=', $thread->id)
             ->with('tag')
             ->distinct()
@@ -151,7 +151,7 @@ class ThreadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $thread = Thread::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
@@ -199,7 +199,7 @@ class ThreadController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 
     public function filterByCategory($title, $id)
@@ -236,7 +236,7 @@ class ThreadController extends Controller
 
     public function searchByKeword()
     {
-       
+
        if (isset($_GET['search'])) {
             $s = $_GET['search'];
             //dd($s);
@@ -273,8 +273,8 @@ class ThreadController extends Controller
             $tags = Tag::all();
 
             return view('thread.index', compact('threads', 'categories', 'tags'));
-        } 
- 
+        }
+
     }
 
     public function customDelete($id)
