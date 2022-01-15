@@ -38,7 +38,7 @@
                           <a class="collection-item avatar" href="{{route('member.show', $member->ref)}}">
                               <img src="{{asset('uploads/contributors/'.$member->picture)}}" alt="" class="circle">
                               <span class="title truncate"><b>{{$member->name}}</b></span>
-                              <span class="grey-text" style="font-size: 12px;">inscrit {{$member->created_at->diffForHumans()}}</span>
+                              <span class="grey-text" style="font-size: 12px;">Joined {{$member->created_at->diffForHumans()}}</span>
                               <p class="truncate black-text">{{$member->description}}
                               </p>
                               <p href="#!" class="secondary-content hide-on-med-and-down"> {{$member->rate()}} <i class="material-icons left yellow-text">star</i></p>
