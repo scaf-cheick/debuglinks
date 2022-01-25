@@ -5,28 +5,28 @@
 @section('url') {{  Request::url() }} @endsection
 
 @section('content')
-    
+
     <div class="marge">
         <br>
         <div class="">
             <blockquote>
                 <h5><b>{{$thread->subject}}</b></h5>
-                <p><b>{{$thread->category->title}} : </b> 
+                <p><b>{{$thread->category->title}} : </b>
                     @foreach($thread->tag as $tag)
                         <a href=""><i>{{$tag->title}}</i></a>
-                    @endforeach 
-                </p>  
-                <p class="grey-text">Posté par <a href="{{route('member.show', $thread->author->ref)}}">{{$thread->author->name}}</a> {{$thread->created_at->diffForHumans()}}
+                    @endforeach
                 </p>
-            </blockquote> 
-                      
+                <p class="grey-text">Posted by <a href="{{route('member.show', $thread->author->ref)}}">{{$thread->author->name}}</a> {{$thread->created_at->diffForHumans()}}
+                </p>
+            </blockquote>
+
         </div>
         <br>
         <div class="row">
             <div class="col s12 m9 l9">
                 <div class="card mt-2 bdr-5 back-color pad-5">
                     <p><a href="{{$thread->link}}" target="_blank" class="white-text">Click to open solution link<i class="material-icons right white-text">touch_app</i></a></p>
-                </div> 
+                </div>
                 <br>
                 <ul class="collection">
                     @forelse($thread->comments as $key => $comment)
@@ -44,11 +44,11 @@
                           <a class="waves-effect waves-dark btn btn-small back-color z-depth-0 btn_reply"  onclick="toggleReply({{$comment->id}})">Reply</a>
 
                           <div id="reply-form-{{$comment->id}}" style="display: none;">
-                        
-                              <form action="{{ route('reply-comment', $comment->id) }}" class="ml_5" method="POST" style="">
-                                  @csrf  
 
-                                  <input type="hidden" name="thread_id" value="{{$thread->id}}">                              
+                              <form action="{{ route('reply-comment', $comment->id) }}" class="ml_5" method="POST" style="">
+                                  @csrf
+
+                                  <input type="hidden" name="thread_id" value="{{$thread->id}}">
 
                                   <div class="input-field">
                                       <label for="body">Body</label>
@@ -56,12 +56,12 @@
                                       @if ($errors->has('body'))
                                           <span class="helper-text red-text" >{{ $errors->first('body') }}</span>
                                       @endif
-                                  </div>      
+                                  </div>
 
                                  <button class="waves-effect waves-dark btn btn-small back-color" type="submit" >Reply</button>
                                  <br><br>
 
-                              </form> 
+                              </form>
 
                           </div>
 
@@ -72,7 +72,7 @@
                                   <br><br>
                                   <ul class="collection">
 
-                                      @foreach($comment->comments as $key => $reply)                                
+                                      @foreach($comment->comments as $key => $reply)
                                         <li class="collection-item avatar" href="">
 
                                           <img src="{{asset('uploads/contributors/'.$reply->author->picture)}}" alt="" class="circle">
@@ -81,7 +81,7 @@
                                           <p class="black-text">{!!$reply->body!!}
                                           </p>
 
-                                        </li>                                 
+                                        </li>
 
                                       @endforeach
 
@@ -96,14 +96,14 @@
                     @empty
 
                         <li class="collection-item"><span>Be the first person to answer in this discussion ...</span></li>
-                        
+
 
                     @endforelse
 
 
                 </ul>
 
-                
+
                 <form action="{{ route('comment-a-thread', $thread->id) }}" method="POST" >
                         @csrf
                         <blockquote>Your answer!</blockquote>
@@ -114,12 +114,12 @@
                             @if ($errors->has('body'))
                               <span class="helper-text red-text" >{{ $errors->first('body') }}</span>
                             @endif
-                        </div>      
+                        </div>
 
                        <button class="waves-effect waves-dark btn btn-medium back-color" type="submit" >Reply</button>
                        <br>
 
-                </form> 
+                </form>
                 <br><br>
                 <blockquote>
                     <h5><b>Similars contributions</b></h5>
@@ -132,7 +132,7 @@
                             <a class="collection-item avatar" href="{{route('threads.show', $thread)}}">
                                 <img src="{{asset('uploads/contributors/'.$thread->author->picture)}}" alt="" class="circle">
                                 <span class="title truncate"><b>@foreach($thread->tag as $tag) {{$tag->title}}, @endforeach </b></span>
-                                <span class="grey-text" style="font-size: 12px;">Posté par {{$thread->author->name}} {{$thread->created_at->diffForHumans()}}</span>
+                                <span class="grey-text" style="font-size: 12px;">Posted by {{$thread->author->name}} {{$thread->created_at->diffForHumans()}}</span>
                                 <br>
                                 <span class="" style="font-size: 14px;">Category : {{$thread->category->title}} </span>
                                 <p class="truncate black-text"> {{$thread->subject}}
@@ -141,8 +141,8 @@
                             </a>
 
                         @endforeach
-                              
-                    </ul>        
+
+                    </ul>
                 </div>
             </div>
 
@@ -150,15 +150,15 @@
                 <div class="card mt-2">
                     <div class="card-content">
                         <span class="card-title">Filter by category</span>
-                            <div class="category-list">   
-                                @foreach($categories as $category)     
+                            <div class="category-list">
+                                @foreach($categories as $category)
                                     <p class="mt-4"><a href="{{route('threads.filter-category', [$category->title, $category->id])}}"><i class="material-icons vertical-text-sub teal-text left"> {{$category->icone}} </i> {{$category->title}} ({{count($category->thread)}})</a></p>
                                 @endforeach
                             </div>
                     </div>
                 </div>
             </div>
-                
+
         </div>
 
     </div>
@@ -172,13 +172,13 @@
     <script src="https://cdn.ckeditor.com/4.11.1/basic/ckeditor.js"></script>
 
     <script type="text/javascript">
-        
+
         CKEDITOR.replace( 'body' );
 
     </script>
 
     <script type="text/javascript">
-        
+
         function toggleReply(id){
 
             console.log(id);
@@ -188,7 +188,7 @@
             if (x.style.display === "none") {
 
                 x.style.display = "block";
-            } 
+            }
             else{
 
                 x.style.display = "none";

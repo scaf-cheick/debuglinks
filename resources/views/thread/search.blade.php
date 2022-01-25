@@ -1,15 +1,15 @@
 @extends('layouts.front')
 
 @section('content')
-    
+
     <div class="marge">
         <br>
         <div class="">
             <blockquote>
-                <h5><b>Latest contributions</b></h5>  
+                <h5><b>Latest contributions</b></h5>
                 <p class=" big-subtitle">The debuglinks community is a place to discuss anything developement related. Remember to be nice and have fun.</p>
-            </blockquote>  
-            
+            </blockquote>
+
         </div>
         <br>
 
@@ -21,7 +21,7 @@
                   <a href="{{route('login')}}" class="btn btn-medium waves-light waves-light back-color btn_publish_one">Login to publish!!<i class="material-icons right">mode_edit</i></a>
               @endif
 
-                
+
             </div>
             <div class="col s12 m6 l6">
                 <form class="row" action="{{route('threads.filter-tags')}}" method="POST">
@@ -51,8 +51,8 @@
               <div class="card mt-2">
                 <div class="card-content">
                   <span class="card-title">Filter by category</span>
-                  <div class="category-list"> 
-                    @foreach($categories as $category)     
+                  <div class="category-list">
+                    @foreach($categories as $category)
                           <p class="mt-4"><a href="{{route('threads.filter-category', [$category->title, $category->id])}}"><i class="material-icons vertical-text-sub teal-text left"> {{$category->icone}} </i> {{$category->title}} ({{count($category->thread)}})</a></p>
                     @endforeach
                   </div>
@@ -63,13 +63,13 @@
             <div class="col s12 m9 l9">
                 <div class="card mt-2">
                     <ul class="collection">
-                          
+
                         @forelse($threads as $thread)
 
                             <a class="collection-item avatar" href="{{route('threads.show', $thread)}}">
                                 <img src="{{asset('uploads/contributors/'.$thread->author->picture)}}" alt="" class="circle">
                                 <span class="title truncate"><b>@foreach($thread->tag as $tag) {{$tag->title}}, @endforeach </b></span>
-                                <span class="grey-text" style="font-size: 12px;">Posté par {{$thread->author->name}} {{$thread->created_at->diffForHumans()}}</span>
+                                <span class="grey-text" style="font-size: 12px;">Posted by {{$thread->author->name}} {{$thread->created_at->diffForHumans()}}</span>
                                 <br>
                                 <span class="" style="font-size: 14px;">Category : {{$thread->category->title}} </span>
                                 <p class="truncate black-text"> {{$thread->subject}}
@@ -80,15 +80,15 @@
                         @empty
                             <li class="collection-item"><span>No solution found for the moment!</span></li>
                         @endforelse
-                        
+
                     </ul>
                     {{-- <div class="center">
                         {{$threads->links()}}
                     </div>
-                    <br>  --}}        
+                    <br>  --}}
                 </div>
             </div>
-          
+
         </div>
 
     </div>
